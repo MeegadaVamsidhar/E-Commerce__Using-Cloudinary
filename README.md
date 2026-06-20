@@ -21,6 +21,85 @@ A modern, high-performance, and fully responsive MERN stack e-commerce platform 
 
 ---
 
+## ☁️ Cloudinary Integration
+
+This project uses **Cloudinary** for scalable cloud-based image storage and optimization. All product images, user avatars, and uploaded files are hosted on Cloudinary.
+
+### **What is Cloudinary?**
+- ☁️ Cloud-based image and video management platform
+- 🎯 Automatic image optimization (resizing, compression, format conversion)
+- 🚀 Global CDN for fast image delivery
+- 🔒 Secure storage with access control
+
+### **Setup Cloudinary**
+
+1. **Create a Free Account**: Visit [cloudinary.com](https://cloudinary.com/users/register/free) and sign up
+2. **Get API Credentials**: From your dashboard, note these values:
+   - **Cloud Name**: Your unique identifier
+   - **API Key**: Public authentication key
+   - **API Secret**: Private authentication key (never expose publicly)
+
+3. **Add to `.env`**:
+```env
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+### **Integration Points**
+
+**Backend Configuration** ([server/config/cloudinary.js](server/config/cloudinary.js)):
+```javascript
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+module.exports = cloudinary;
+```
+
+**Image Upload Endpoints**:
+- `POST /api/upload` - Upload product images ([server/controllers/uploadController.js](server/controllers/uploadController.js))
+- `POST /api/products/upload` - Seller product image upload
+- Supports `image/jpeg`, `image/png`, `image/webp`
+
+**Frontend Upload** ([client/src/components/common/FileUpload.jsx](client/src/components/common/FileUpload.jsx)):
+- Drag-and-drop image upload with preview
+- Auto-compression before server transmission
+- Progress indicator during upload
+
+### **Usage Examples**
+
+**Upload a Product Image (Frontend)**:
+```javascript
+const formData = new FormData();
+formData.append('file', imageFile);
+
+const response = await api.post('/upload', formData, {
+  headers: { 'Content-Type': 'multipart/form-data' }
+});
+
+const imageUrl = response.data.url; // Cloudinary URL
+```
+
+**Delete Image (Backend)**:
+```javascript
+// Automatically handled when product is deleted
+cloudinary.uploader.destroy(publicId);
+```
+
+### **Best Practices**
+✅ Use dynamic URLs for responsive images (Cloudinary auto-resizes)
+✅ Enable image compression to reduce bandwidth
+✅ Set expiration on temporary uploads
+✅ Keep API Secret in server-side `.env` only
+✅ Monitor Cloudinary usage in dashboard (free tier: 25 GB storage)
+
+---
+
 ## 🛠️ Local Development Setup
 
 ### 1. Clone & Install Dependencies
