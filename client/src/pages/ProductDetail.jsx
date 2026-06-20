@@ -15,7 +15,7 @@ import {
   FiBell,
   FiBellOff,
   FiPlay,
-  FiStore,
+  FiShoppingBag,
   FiTrendingDown,
   FiAward,
 } from 'react-icons/fi';
@@ -133,7 +133,7 @@ function SellerSelector({ sellers, selectedSeller, onSelect, cheapestSeller, hig
     <>
       <div className="p-4 rounded-xl" style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)' }}>
         <div className="flex items-center gap-2 mb-3">
-          <FiStore className="text-primary-400" />
+          <FiShoppingBag className="text-primary-400" />
           <span className="text-white font-semibold text-sm">{sellers.length} sellers available</span>
         </div>
         <div className="flex gap-4 text-xs">
