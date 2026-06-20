@@ -1,0 +1,23 @@
+{
+  "name": "ecommerce-app",
+  "version": "1.0.0",
+  "description": "ShopNova - Full-stack MERN ecommerce application",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "client": "cd client && npm run dev",
+    "server": "cd server && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install",
+    "lint": "cd client && npm run lint",
+    "preview": "cd client && npm run preview",
+    "heroku-postbuild": "cd client && npm install && npm run build && cd ../server && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
